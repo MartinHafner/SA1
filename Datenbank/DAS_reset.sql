@@ -10,3 +10,5 @@ drop SEQUENCE document_sequenz;
 drop SEQUENCE version_sequenz;
 drop SEQUENCE boocking_sequenz;
 drop SEQUENCE format_sequenz;
+
+drop TRIGGER changePermission;

@@ -24,11 +24,20 @@ create table das_document(
   );
   create sequence document_sequenz MINVALUE 1 MAXVALUE 10000  START WITH 1 INCREMENT BY 1 CACHE 1000;
   
+  create table das_version(
+  id integer primary key,
+  datum date,
+  document integer,
+  data blob,
+  constraint FK_document_version foreign key(document) references das_document(id)
+  );
+create sequence version_sequenz MINVALUE 1 MAXVALUE 10000  START WITH 1 INCREMENT BY 1 CACHE 1000;
+
   create table das_permission(
   id integer primary key,
   userid integer,
-  datum date, --new
-  version integer, --version
+  datum date,
+  version integer,
   read varchar2(10),
   write varchar2(10),
   constraint FK_user_permission foreign key(userid) references das_user(id),
@@ -38,15 +47,6 @@ create table das_document(
   );
 
 create sequence permission_sequenz MINVALUE 1 MAXVALUE 10000  START WITH 1 INCREMENT BY 1 CACHE 1000;
-  
-  create table das_version(
-  id integer primary key,
-  datum date,
-  document integer,
-  data blob,
-  constraint FK_document_version foreign key(document) references das_document(id)
-  );
-create sequence version_sequenz MINVALUE 1 MAXVALUE 10000  START WITH 1 INCREMENT BY 1 CACHE 1000;
 
 create table das_booking(
   id integer primary key,

@@ -11,4 +11,6 @@ drop SEQUENCE version_sequenz;
 drop SEQUENCE boocking_sequenz;
 drop SEQUENCE format_sequenz;
 
-drop TRIGGER changePermission;
+drop TRIGGER setPermission;
+drop TRIGGER setDocument;
+drop TRIGGER setVersion;

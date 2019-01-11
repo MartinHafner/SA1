@@ -46,6 +46,14 @@ public class Format {
 		this.formatId = formatId;
 	}
 
+	public List<Version> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(List<Version> versions) {
+		this.versions = versions;
+	}
+
 	public String getDescription() {
 		return description;
 	}

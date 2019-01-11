@@ -47,10 +47,6 @@ public class Document {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="format", nullable=false)
-	private int format;
-	
 	@Column(name="description")
 	private String description;
 	
@@ -90,14 +86,6 @@ public class Document {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public int getFormat() {
-		return format;
-	}
-
-	public void setFormat(int format) {
-		this.format = format;
 	}
 
 	public String getDescription() {

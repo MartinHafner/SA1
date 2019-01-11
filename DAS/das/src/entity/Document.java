@@ -17,15 +17,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
-  create table das_document(
-  	id integer primary key,
-  	owner integer,
-  	name varchar2(50),
-  	datum date,
-  	format integer,
-  	description varchar2(100),
-  		constraint FK_user_document foreign key(owner) references das_user(id),
-  		constraint FK_format_document foreign key(format) references das_format(formatId)
+create table das_document(
+  id integer primary key,
+  owner integer,
+  name varchar2(50),
+  datum date,
+  description varchar2(100),
+  constraint FK_user_document foreign key(owner) references das_user(id)
   );
  *
  */
@@ -40,7 +38,7 @@ public class Document {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="owner", nullable=false)
-	private int owner;
+	private User owner;
 	
 	@Column(name="name")
 	private String name;
@@ -57,26 +55,24 @@ public class Document {
 	private String description;
 	
 	@OneToMany(mappedBy = "das_version", fetch=FetchType.EAGER)
-	private List<Document> versions;
+	private List<Version> versions;
 	
-	
+	@OneToMany(mappedBy = "das_permission", fetch=FetchType.EAGER)
+	private List<Permission> permissions;
 
 	public int getDocumentId() {
 		return documentId;
-	}
-
-	public Document() {
 	}
 
 	public void setDocumentId(int documentId) {
 		this.documentId = documentId;
 	}
 
-	public int getOwner() {
+	public User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(int owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 
@@ -88,12 +84,12 @@ public class Document {
 		this.name = name;
 	}
 
-	public Date getDatum() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDatum(Date datum) {
-		this.date = datum;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public int getFormat() {
@@ -111,4 +107,21 @@ public class Document {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public List<Version> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(List<Version> versions) {
+		this.versions = versions;
+	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
+	
 }

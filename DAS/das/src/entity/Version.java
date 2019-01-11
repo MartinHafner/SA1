@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,14 +15,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
+  
   create table das_version(
-  	id integer primary key,
-  	datum date,
-  	document integer,
-  	data blob,
-  		constraint FK_document_version foreign key(document) references das_document(id)
+  id integer primary key,
+  datum date not null,
+  document integer not null,
+  format integer,
+  data blob not null,
+  constraint FK_format_version foreign key(format) references das_format(formatId),
+  constraint FK_document_version foreign key(document) references das_document(id)
   );
  */
 
@@ -33,42 +39,76 @@ public class Version {
 	@SequenceGenerator(name="version_seq", sequenceName="version_sequenz", allocationSize=1)
 	@Column(name="id")
 	private int versionId;
+	
+	@Column(name="datum", nullable=false)
+	@Temporal(TemporalType.DATE)
+	private Date date;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="document", nullable=false)
-	private int documentId;
+	private Document document;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="format", nullable=false)
+	private Format format;
 	
 	@Lob
 	@Column(length=100000)
 	private byte[] data;
 	
-	@OneToMany(mappedBy = "das_permission", fetch=FetchType.EAGER)
-	private List<Document> permissions;
 
 	public Version() {
 	}
+
 
 	public int getVersionId() {
 		return versionId;
 	}
 
+
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
 	}
 
-	public int getDocumentId() {
-		return documentId;
+
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDocumentId(int documentId) {
-		this.documentId = documentId;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+
+	public Document getDocument() {
+		return document;
+	}
+
+
+	public void setDocument(Document document) {
+		this.document = document;
+	}
+
+
+	public Format getFormat() {
+		return format;
+	}
+
+
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+
 
 	public byte[] getData() {
 		return data;
 	}
 
+
 	public void setData(byte[] data) {
 		this.data = data;
 	}
+
+	
 }

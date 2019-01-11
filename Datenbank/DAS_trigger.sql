@@ -4,8 +4,10 @@ after insert on das_permission
 referencing new as newRow
 for each row
 begin
-  insert into das_booking VALUES(boocking_sequenz.nextval, :newRow.owner, SYSDATE, 'das_permission', :newRow.id, 'insert');
-end setPermission;
+  insert into das_booking VALUES(boocking_sequenz.nextval, :newRow.grantee, SYSDATE, 'das_permission', :newRow.document, 'insert');
+--exception
+  --when others then dbmv_output.put_line('exeption throw');
+end setPermission; 
 /
 
 --Trigger Document
@@ -24,7 +26,7 @@ after insert on das_version
 referencing new as newRow
 for each row
 begin
-  insert into das_booking VALUES(boocking_sequenz.nextval, :newRow.creator , SYSDATE, 'das_version', :newRow.id, 'insert');
+  insert into das_booking VALUES(boocking_sequenz.nextval, null , SYSDATE, 'das_version', :newRow.id, 'insert');
 end setVersion;
 /
   

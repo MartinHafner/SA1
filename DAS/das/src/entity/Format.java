@@ -32,8 +32,8 @@ public class Format {
 	@Column(name="description")
 	private String description;
 	
-	@OneToMany(mappedBy = "das_document", fetch=FetchType.EAGER)
-	private List<Document> documents;
+	@OneToMany(mappedBy = "das_version", fetch=FetchType.EAGER)
+	private List<Version> versions;
 	
 	public Format(){
 	}

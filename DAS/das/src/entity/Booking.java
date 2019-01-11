@@ -36,7 +36,7 @@ public class Booking {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userid", nullable=false)
-	private int userId;
+	private User userId;
 	
 	@Column(name="datum", nullable=false)
 	@Temporal(TemporalType.DATE)
@@ -62,11 +62,11 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 
-	public int getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 

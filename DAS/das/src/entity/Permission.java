@@ -17,16 +17,13 @@ import javax.persistence.TemporalType;
 
 /**
   create table das_permission(
-  id integer primary key,
-  userid integer,
-  datum date, --new
-  version integer, --version
-  read varchar2(10),
-  write varchar2(10),
-  constraint FK_user_permission foreign key(userid) references das_user(id),
-  constraint FK_version_permission foreign key(version) references das_version(id), --version
-  constraint check_read check (read is not null and read in('true', 'false')),
-  constraint check_write check (write is not null and write in('true', 'false'))
+  grantee integer,
+  document integer,
+  datum date,
+  rights integer not null,
+  constraint PK_grantee_doc_permission primary key(grantee,document),
+  constraint FK_user_permission foreign key(grantee) references das_user(id),
+  constraint FK_version_permission foreign key(document) references das_document(id)
   );
 
  *
@@ -36,46 +33,46 @@ import javax.persistence.TemporalType;
 @Table(name="das_permission")
 public class Permission {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="permission_seq")
-	@SequenceGenerator(name="permission_seq", sequenceName="permission_sequenz", allocationSize=1)
 	@Column(name="id")
-	private int permissionId;
+	private PermissionId permissionId;
+	// PermissionId????
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="userid", nullable=false)
-	private int userId;
+	@JoinColumn(name="grantee", nullable=false)
+	private User grantee;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="document", nullable=false)
+	private Document document;
 	
 	@Column(name="datum", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="version", nullable=false)
-	private int versionId;
-	
-	@Column(name="read")
-	private String read;
-	
-	@Column(name="write")
-	private String write;
+	@Column(name="rights")
+	private int rights;
 	
 	public Permission() {
 	}
 
-	public int getPermissionId() {
+	public PermissionId getPermissionId() {
 		return permissionId;
 	}
 
-	public void setPermissionId(int permissionId) {
-		this.permissionId = permissionId;
+	public User getGrantee() {
+		return grantee;
 	}
 
-	public int getUserId() {
-		return userId;
+	public void setGrantee(User grantee) {
+		this.grantee = grantee;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	public Date getDate() {
@@ -86,38 +83,17 @@ public class Permission {
 		this.date = date;
 	}
 
-	public int getVersionId() {
-		return versionId;
+	public int getRights() {
+		return rights;
 	}
 
-	public void setVersionId(int versionId) {
-		this.versionId = versionId;
+	public void setRights(int rights) {
+		this.rights = rights;
 	}
 
-	public Boolean getRead() {
-		if(this.read.equals("true"))
-		return true;
-		
-		else {
-			return false;
-		}
+	public void setPermissionId(int grantee, int document) {
+		this.permissionId = new PermissionId(grantee,document);
 	}
-
-	public void setRead(Boolean read) {
-		this.read = String.valueOf(read);
-	}
-
-	public Boolean getWrite() {
-		if(this.write.equals("true"))
-		return true;
-		
-		else {
-			return false;
-		}
-	}
-
-	public void setWrite(Boolean write) {
-		this.read = String.valueOf(write);
-	}
+	
 	
 }

@@ -15,7 +15,7 @@ public interface Manager<K, E> {
 	void save(E entity);
 
 	void delete(E entity) throws NoSuchRowException;
-
+	
 	@Remove
 	void checkout();
 

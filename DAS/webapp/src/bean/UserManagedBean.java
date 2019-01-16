@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import exception.NoSuchRowException;
 import model.User;
 import session.UserManagerRemote;
 
@@ -25,5 +26,12 @@ public class UserManagedBean implements Serializable {
 	public List<User> list() {
 		return this.manager.list();
 	}
-
+	
+	public User login(String email, String passwort) {
+		return this.manager.login(email, passwort);
+	}
+	
+	public Boolean register(String name, String email, String passwort) throws NoSuchRowException{
+		return this.manager.register(name, email, passwort);
+	}
 }

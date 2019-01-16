@@ -30,7 +30,6 @@ public class UserManager implements UserManagerRemote, Serializable {
 	@Override
 	public List<User> list() {
 		final TypedQuery<User> query = this.manager.createQuery("select u from User u", User.class);
-		System.out.println("----------------\n\n query= " + query.getResultList() + "\n\n");
 		return query.getResultList();
 	}
 
@@ -41,6 +40,29 @@ public class UserManager implements UserManagerRemote, Serializable {
 			throw new NoSuchRowException("Couldn´t find the User with Id: " + primaryKey);
 		}
 		return user;
+	}
+	
+	@Override
+	public Boolean register(String name, String email, String passwort) throws NoSuchRowException{
+		User n = new User(name,passwort,email);
+		boolean status = false;
+		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= "+ email, User.class);
+		User x = (User)query.getSingleResult();
+		if(x != null) {
+			this.save(n);
+			status = true;
+		}
+		else {
+			System.out.println("Register failed!");
+		}
+		return status;
+	}
+	
+	@Override
+	public User login(String email, String passwort) {
+		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= "+ email +" and u.password="+ passwort, User.class);
+		User x = (User)query.getSingleResult();
+		return x;
 	}
 
 	@Override

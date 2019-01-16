@@ -13,8 +13,7 @@ import session.UserManagerRemote;
 @SessionScoped
 @ManagedBean(name="userBean")
 public class UserManagedBean implements Serializable {
-
-	private static final long serialVersionUID = 9012279179723280891L;
+	private static final long serialVersionUID = -5872343355923192032L;
 
 	private static final String EJB_NAME
 	= "java:global/ejb/UserManager!session.UserManagerRemote";

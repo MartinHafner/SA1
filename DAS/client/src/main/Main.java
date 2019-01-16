@@ -10,10 +10,9 @@ import session.UserManagerRemote;
 
 public class Main {
 
-
 	public static final String USER_REMOTE
-	= "ejb/UserManager!session.UserManagerRemote";
-
+       = "ejb/UserManager!session.UserManagerRemote";
+	
 	public static void main(final String[] args) throws NamingException {
 		final InitialContext context = new InitialContext();
 

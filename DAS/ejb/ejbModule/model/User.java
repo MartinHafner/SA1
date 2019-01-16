@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +24,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="das_user")
-public class User {
+public class User implements Serializable {
+	
+	private static final long serialVersionUID = -8572770050861835613L;
+	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
 	@SequenceGenerator(name="user_seq", sequenceName="user_sequenz", allocationSize=1)
@@ -33,17 +38,17 @@ public class User {
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="password")
+	@Column(name="passwort")
 	private String password;
 	
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(mappedBy = "das_document", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "owner", fetch=FetchType.EAGER)
 	private List<Document> documents;
 	
-	@OneToMany(mappedBy = "das_permission", fetch=FetchType.EAGER)
-	private List<Document> permissions;
+	@OneToMany(mappedBy = "grantee", fetch=FetchType.EAGER)
+	private List<Permission> permissions;
 	
 	public User(){
 	}

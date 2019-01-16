@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
-  
   create table das_version(
   id integer primary key,
   datum date not null,
@@ -31,7 +31,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="das_version")
-public class Version {
+public class Version implements Serializable{
+
+	private static final long serialVersionUID = -7312730864173157103L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="version_seq")
 	@SequenceGenerator(name="version_seq", sequenceName="version_sequenz", allocationSize=1)

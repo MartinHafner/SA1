@@ -19,24 +19,25 @@ import session.UserManagerRemote;
 @Remote(UserManagerRemote.class)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserManager implements UserManagerRemote, Serializable {
-
 	private static final long serialVersionUID = -8883455753847861769L;
-	
+
 	@PersistenceContext(unitName = "das")
 	private EntityManager manager;
-	
-	public UserManager(){}
-	
+
+	public UserManager() {
+	}
+
 	@Override
 	public List<User> list() {
 		final TypedQuery<User> query = this.manager.createQuery("select u from User u", User.class);
+		System.out.println("----------------\n\n query= " + query.getResultList() + "\n\n");
 		return query.getResultList();
 	}
 
 	@Override
 	public User findByPrimaryKey(Integer primaryKey) throws NoSuchRowException {
 		final User user = this.manager.find(User.class, primaryKey);
-		if(user == null) {
+		if (user == null) {
 			throw new NoSuchRowException("Couldn´t find the User with Id: " + primaryKey);
 		}
 		return user;
@@ -45,11 +46,10 @@ public class UserManager implements UserManagerRemote, Serializable {
 	@Override
 	public void save(User entity) {
 		final User x = this.manager.find(User.class, entity.getUserId());
-		
-		if(x != null) {
+
+		if (x != null) {
 			this.manager.merge(entity);
-		}
-		else {
+		} else {
 			this.manager.persist(entity);
 		}
 	}
@@ -57,17 +57,16 @@ public class UserManager implements UserManagerRemote, Serializable {
 	@Override
 	public void delete(User entity) throws NoSuchRowException {
 		final User x = this.manager.find(User.class, entity.getUserId());
-		
-		if(x != null) {
+
+		if (x != null) {
 			throw new NoSuchRowException("Couldn´t find the User with Id: " + entity.getUserId());
-		}
-		else {
+		} else {
 			this.manager.remove(entity);
 		}
 	}
 
 	@Override
-	public void checkout() {}
-
+	public void checkout() {
+	}
 
 }

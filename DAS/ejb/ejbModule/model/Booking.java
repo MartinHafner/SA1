@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +29,10 @@ create table das_booking(
 
 @Entity
 @Table(name="das_booking")
-public class Booking {
+public class Booking implements Serializable{
+
+	private static final long serialVersionUID = 8250301445513262989L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="boocking_seq")
 	@SequenceGenerator(name="boocking_seq", sequenceName="boocking_sequenz", allocationSize=1)
@@ -48,7 +53,7 @@ public class Booking {
 	@Column(name="subjectID", nullable=false)
 	private int subjectId;
 
-	@JoinColumn(name="operation", nullable=false)
+	@Column(name="operation", nullable=false)
 	private String operation;
 	
 	public Booking() {

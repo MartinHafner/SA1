@@ -13,6 +13,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,10 @@ create table das_document(
  */
 @Entity
 @Table(name="das_document")
-public class Document {
+public class Document implements Serializable{
+
+	private static final long serialVersionUID = 471268397284657849L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="document_seq")
 	@SequenceGenerator(name="document_seq", sequenceName="document_sequenz", allocationSize=1)
@@ -50,10 +55,10 @@ public class Document {
 	@Column(name="description")
 	private String description;
 	
-	@OneToMany(mappedBy = "das_version", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "document", fetch=FetchType.LAZY)
 	private List<Version> versions;
 	
-	@OneToMany(mappedBy = "das_permission", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "document", fetch=FetchType.EAGER)
 	private List<Permission> permissions;
 
 	public int getDocumentId() {

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="das_format")
-public class Format { 
+public class Format implements Serializable{ 
+
+	private static final long serialVersionUID = -3033580459840739165L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="format_seq")
 	@SequenceGenerator(name="format_seq", sequenceName="format_sequenz", allocationSize=1)
@@ -32,7 +36,7 @@ public class Format {
 	@Column(name="description")
 	private String description;
 	
-	@OneToMany(mappedBy = "das_version", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "format", fetch=FetchType.EAGER)
 	private List<Version> versions;
 	
 	public Format(){

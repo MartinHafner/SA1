@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -28,18 +30,20 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="das_permission")
-public class Permission {
-	@Id
-	@Column(name="id")
+public class Permission implements Serializable{
+
+	private static final long serialVersionUID = 4876425268373322437L;
+
+	@EmbeddedId
 	private PermissionId permissionId;
-	// PermissionId????
+	// PermissionId
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="grantee", nullable=false)
+	@JoinColumn(name="grantee", nullable=false, insertable=false, updatable=false)
 	private User grantee;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="document", nullable=false)
+	@JoinColumn(name="document", nullable=false, insertable=false, updatable=false)
 	private Document document;
 	
 	@Column(name="datum", nullable=false)
@@ -50,6 +54,12 @@ public class Permission {
 	private int rights;
 	
 	public Permission() {
+	}
+	
+	public Permission(int grantee, int document, Date date, int rights) {
+		permissionId = new PermissionId(grantee,document);
+		this.date = date;
+		this.rights = rights;
 	}
 
 	public PermissionId getPermissionId() {

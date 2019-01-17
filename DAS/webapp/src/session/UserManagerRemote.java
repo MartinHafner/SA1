@@ -7,7 +7,7 @@ import model.User;
 
 @Remote
 public interface UserManagerRemote extends Manager<Integer, User> {
-	//public Boolean register(String name, String email, String passwort) throws NoSuchRowException;
+	public Boolean register(String name, String email, String passwort) throws NoSuchRowException;
 	
-	//public User login(String email, String passwort);
+	public int login(String email, String passwort);
 }

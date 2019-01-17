@@ -13,9 +13,7 @@ import javax.persistence.TypedQuery;
 
 import exception.NoSuchRowException;
 import model.Document;
-import model.User;
 import session.DocumentManagerRemote;
-import session.UserManagerRemote;
 
 @Stateless
 @Remote(DocumentManagerRemote.class)

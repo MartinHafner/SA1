@@ -23,13 +23,12 @@
 <h:body style="background-color: white;">
 	<!-- Responsive Headerbereich durch jumbotron wird Style festgelegt-->
 
-	<div class="jumbotron">
-		<div class="py-1 text-center">
-			<!--
-    			====================================================
-				hier Design TODO!
-    			====================================================
-			-->
+	<div class="jumbotron bg-info">
+		<div class="py-1 text-center text-white">
+			<img class="d-block mx-auto mb-4" src="images/DAS_logo.png"
+				alt="DAS" width="500" height="300" />
+			<h2>Data Archiv System</h2>
+			<div id="out"></div>
 		</div>
 	</div>
 
@@ -38,11 +37,11 @@
 	</div>
 
 	<!-- unterer Bereich  -->
-	<div class="jumbotron">
-		<div class="py-1 text-left">
-			<h:outputText value="#{msg['application.yourAdvertise']}" />
+	<div class="jumbotron bg-info main-footer mb-0">
+		<div class="container text-center text-white">
+			<p>&copy; DAS 2019 </p>
+			
 		</div>
-		<h:outputText value="#{msg['application.lowerSection']}" />
 	</div>
 
 	<tfoot>

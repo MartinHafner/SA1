@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -41,28 +42,34 @@ public class UserManager implements UserManagerRemote, Serializable {
 		}
 		return user;
 	}
-	
-	//@Override
-	public Boolean register(String name, String email, String passwort) throws NoSuchRowException{
-		User n = new User(name,passwort,email);
+
+	@Override
+	public Boolean register(String name, String email, String passwort) throws NoSuchRowException {
+		User n = new User(name, passwort, email);
 		boolean status = false;
-		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= "+ email, User.class);
-		User x = (User)query.getSingleResult();
-		if(x != null) {
+		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= " + email,
+				User.class);
+		User x = (User) query.getSingleResult();
+		if (x != null) {
 			this.save(n);
 			status = true;
-		}
-		else {
+		} else {
 			System.out.println("Register failed!");
 		}
 		return status;
 	}
-	
-	//@Override
-	public User login(String email, String passwort) {
-		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= "+ email +" and u.password="+ passwort, User.class);
-		User x = (User)query.getSingleResult();
-		return x;
+
+	@Override
+	public int login(String email, String passwort) {
+		final TypedQuery<User> query = this.manager.createQuery(
+				"select u from User u where u.email= " + email + " and u.password=" + passwort, User.class);
+		User x = null;
+		try {
+			x = (User) query.getSingleResult();
+		} catch (NoResultException e) {
+
+		}
+		return x.getUserId();
 	}
 
 	@Override

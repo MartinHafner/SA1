@@ -8,21 +8,21 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 	<ui:define name="content">
-		<h:dataTable value="#{documentBean.list()}" var="result"
+		<h:dataTable value="#{bookingBean.list()}" var="result"
 			styleClass="order-table" cellpadding="20" cellspacing="1"
 			headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-even-row">
 			<h:column>
 				<f:facet name="header">ID</f:facet> 
-				#{result.documentId}
+				#{result.bookingId}
 			</h:column>
 			<h:column>
 				<f:facet name="header">Name</f:facet> 
-				#{result.name}
+				#{result.userId}
 			</h:column>
 			<h:column>
-				<f:facet name="header">Description</f:facet> 
-				#{result.description}
+				<f:facet name="header">Subject</f:facet> 
+				#{result.subject}
 			</h:column>
 		</h:dataTable>
 

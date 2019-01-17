@@ -18,7 +18,7 @@ import session.DocumentManagerRemote;
 import session.UserManagerRemote;
 
 @Stateless
-@Remote(UserManagerRemote.class)
+@Remote(DocumentManagerRemote.class)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class DocumentManager implements DocumentManagerRemote, Serializable{
 

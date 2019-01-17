@@ -2,10 +2,12 @@ package session;
 
 import java.util.List;
 
+import javax.ejb.Remote;
 import javax.ejb.Remove;
 
 import exception.NoSuchRowException;
 
+@Remote
 public interface Manager<K, E> {
 
 	List<E> list();

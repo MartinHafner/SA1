@@ -16,10 +16,10 @@ public class DocumentManagedBean implements Serializable{
 
 	private static final long serialVersionUID = 8231873473783288720L;
 
-	private static final String EJB_NAME
+	private static final String EJB_NAME_DOCUMENT
 	= "java:global/ejb/DocumentManager!session.DocumentManagerRemote";
 
-	@EJB(mappedName=EJB_NAME)
+	@EJB(mappedName=EJB_NAME_DOCUMENT)
 	private DocumentManagerRemote manager;
 
 

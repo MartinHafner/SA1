@@ -42,7 +42,7 @@ public class UserManager implements UserManagerRemote, Serializable {
 		return user;
 	}
 	
-	@Override
+	//@Override
 	public Boolean register(String name, String email, String passwort) throws NoSuchRowException{
 		User n = new User(name,passwort,email);
 		boolean status = false;
@@ -58,7 +58,7 @@ public class UserManager implements UserManagerRemote, Serializable {
 		return status;
 	}
 	
-	@Override
+	//@Override
 	public User login(String email, String passwort) {
 		final TypedQuery<User> query = this.manager.createQuery("select u from User u where u.email= "+ email +" and u.password="+ passwort, User.class);
 		User x = (User)query.getSingleResult();
